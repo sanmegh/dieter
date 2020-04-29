@@ -2,7 +2,9 @@
   <ion-item class="heading" lines="full">
     <ion-label>{{item.name}}</ion-label>
   </ion-item>
+
   <ion-img class="preview" [src]="item.imageLink"></ion-img>
+
   <p><strong>Name : </strong>{{item.name}}</p>
   <p><strong>Pack : </strong>{{item.quantity}} {{item.quantityUnit}}</p>
   <p><strong>Price : </strong>£ {{item.cost}}</p>
@@ -11,4 +13,6 @@
   <p><strong>Protein : </strong>{{item.protein}} {{item.quantityUnit}}</p>
   <p><strong>Fat : </strong>{{item.fibre}} {{item.quantityUnit}}</p>
   <p><strong>Fibre : </strong>{{item.fibre}} {{item.quantityUnit}}</p>
+
+  <ion-button expand="block" routerLink="../">Close</ion-button>
 </ion-content>

@@ -4,7 +4,7 @@
     <ion-label>Browse Shelf Items</ion-label>
   </ion-item>
   <ion-searchbar placeholder="Search by item name" (ionInput)="searchForRegisteredItems($event)"></ion-searchbar>
-  <ion-item *ngFor="let item of results">
+  <ion-item *ngFor="let item of results" (click)="viewItem(item.id)">
     <ion-img class="list-image" [src]="item.imageLink"></ion-img>
     <ion-label>
       <h2>{{item.name}}</h2>
