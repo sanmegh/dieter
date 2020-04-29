@@ -5,7 +5,6 @@ import { IonicModule } from '@ionic/angular';
 import { MealBrowserComponent } from './meal-browser/meal-browser.page';
 import { MealCreatorComponent } from './meal-creator/meal-creator.page';
 import { MealManagerRoutingModule } from './meal-manager-routing.module';
-import { MealManagerComponent } from './meal-manager.page';
 import { MealViewComponent } from './meal-view/meal-view.page';
 
 
@@ -17,7 +16,6 @@ import { MealViewComponent } from './meal-view/meal-view.page';
     MealManagerRoutingModule
   ],
   declarations: [
-    MealManagerComponent,
     MealCreatorComponent,
     MealBrowserComponent,
     MealViewComponent,

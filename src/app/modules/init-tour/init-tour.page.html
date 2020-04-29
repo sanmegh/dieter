@@ -4,16 +4,48 @@
     <a slot="end" (click)="skipTour()">Skip Tour</a>
   </ion-item>
 
-  <div class="fullheight xc">
-    <ion-item class="heading vertical-center" lines="none">
-      <ion-label>
-        <h1>Welcome</h1>
-      </ion-label>
-    </ion-item>
+  <ion-item class="heading" lines="none">
+    <ion-label>
+      <h1>Welcome to Dieter</h1>
+    </ion-label>
+  </ion-item>
 
-    <ion-item class="heading" lines="none">
-      <ion-button (click)="completeTour()">Begin!</ion-button>
-    </ion-item>
-  </div>
+  <ion-item lines="none" *ngIf="page === 1">
+    <ion-text>
+      <p>
+        <strong>Step 1</strong><br>
+        Register grocery items.<br>
+        Do this when you update your kitchen shelf.
+      </p>
+    </ion-text>
+  </ion-item>
+
+  <ion-item lines="none" *ngIf="page === 2">
+    <ion-text>
+      <p>
+        <strong>Step 2</strong><br>
+        Create meals using your registered items.<br>
+        Do this when you are planning to make a new dish.
+      </p>
+    </ion-text>
+  </ion-item>
+
+  <ion-item lines="none" *ngIf="page === 3">
+    <ion-text>
+      <p>
+        <strong>Step 3</strong><br>
+        Add meals to your day.<br>
+        Do this each time you have a meal.
+      </p>
+    </ion-text>
+  </ion-item>
 
 </ion-content>
+
+<ion-footer>
+  <ion-toolbar position="bottom">
+    <ion-item lines="none">
+      <ion-button (click)="continue()">Continue</ion-button>
+    </ion-item>
+  </ion-toolbar>
+</ion-footer>

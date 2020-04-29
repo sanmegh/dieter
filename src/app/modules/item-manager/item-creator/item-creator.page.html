@@ -10,6 +10,7 @@
 
   <div *ngIf="step==='TESCO'">
     <ion-item class="heading" lines="full">
+      <ion-icon slot="start" name="caret-back-outline" (click)="ngOnInit(); step='HOME'"></ion-icon>
       <ion-label>Register Tesco Item</ion-label>
     </ion-item>
     <ion-item>
@@ -33,6 +34,7 @@
 
   <div *ngIf="step==='PACK'">
     <ion-item class="heading" lines="full">
+      <ion-icon slot="start" name="caret-back-outline" (click)="item.store?step='TESCO':step='HOME'"></ion-icon>
       <ion-label>Enter Pack Details</ion-label>
     </ion-item>
     <ion-item>
@@ -53,11 +55,11 @@
     </ion-item>
     <ion-button expand="block" (click)="step='NUTRITION'" [disabled]="!item.name || !item.quantityUnit">Continue
     </ion-button>
-    <ion-button expand="block" (click)="item.store?step='TESCO':step='HOME'">Go Back</ion-button>
   </div>
 
   <div *ngIf="step==='NUTRITION'">
     <ion-item class="heading" lines="full">
+      <ion-icon slot="start" name="caret-back-outline" (click)="step='PACK'"></ion-icon>
       <ion-label>Enter Pack Nutrition Details</ion-label>
     </ion-item>
     <ion-item>
@@ -81,21 +83,21 @@
       <ion-input [(ngModel)]="item.fibre" type="number"></ion-input>
     </ion-item>
     <ion-button expand="block" (click)="step='IMAGE'">Continue</ion-button>
-    <ion-button expand="block" (click)="step='PACK'">Go Back</ion-button>
   </div>
 
   <div *ngIf="step==='IMAGE'">
     <ion-item class="heading" lines="full">
+      <ion-icon slot="start" name="caret-back-outline" (click)="step='RECIPE'"></ion-icon>
       <ion-label>Item Image</ion-label>
     </ion-item>
     <ion-input placeholder="Enter image link..." [(ngModel)]="item.imageLink"></ion-input>
     <ion-img class="preview" [src]="item.imageLink" alt=""></ion-img>
     <ion-button expand="block" (click)="step='REVIEW'" [disabled]="!item.imageLink">Review</ion-button>
-    <ion-button expand="block" (click)="step='RECIPE'">Go Back</ion-button>
   </div>
 
   <div *ngIf="step==='REVIEW'">
     <ion-item class="heading" lines="full">
+      <ion-icon slot="start" name="caret-back-outline" (click)="step='IMAGE'"></ion-icon>
       <ion-label>Review Details</ion-label>
     </ion-item>
     <ion-img class="preview" [src]="item.imageLink"></ion-img>

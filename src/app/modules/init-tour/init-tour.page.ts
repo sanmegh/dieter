@@ -9,6 +9,8 @@ import { Router } from '@angular/router';
 })
 export class InitTourPage {
 
+  page = 1;
+
   constructor(
     private dataService: DataService,
     private router: Router
@@ -19,8 +21,12 @@ export class InitTourPage {
     this.router.navigate(['/']);
   }
 
-  completeTour() {
-    this.dataService.setAttribute('TOUR', 'NDONE');
+  continue() {
+    if (this.page < 3) {
+      this.page++;
+      return;
+    }
+    this.dataService.setAttribute('TOUR', 'DONE');
     this.router.navigate(['/']);
   }
 
