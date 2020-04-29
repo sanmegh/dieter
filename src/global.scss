@@ -1,0 +1,75 @@
+/*
+ * App Global CSS
+ * ----------------------------------------------------------------------------
+ * Put style rules here that you want to apply globally. These styles are for
+ * the entire app and not just one component. Additionally, this file can be
+ * used as an entry point to import other CSS/Sass files to be included in the
+ * output CSS.
+ * For more information on global stylesheets, visit the documentation:
+ * https://ionicframework.com/docs/layout/global-stylesheets
+ */
+
+/* Core CSS required for Ionic components to work properly */
+@import "~@ionic/angular/css/core.css";
+
+/* Basic CSS for apps built with Ionic */
+@import "~@ionic/angular/css/normalize.css";
+@import "~@ionic/angular/css/structure.css";
+@import "~@ionic/angular/css/typography.css";
+@import "~@ionic/angular/css/display.css";
+
+/* Optional CSS utils that can be commented out */
+@import "~@ionic/angular/css/padding.css";
+@import "~@ionic/angular/css/float-elements.css";
+@import "~@ionic/angular/css/text-alignment.css";
+@import "~@ionic/angular/css/text-transformation.css";
+@import "~@ionic/angular/css/flex-utils.css";
+
+ion-content {
+    --background: var(--ion-color-main-background);
+}
+
+ion-item {
+    --background: var(--ion-color-main-background);
+}
+
+ion-item.heading {
+    --background: var(--ion-color-main-dark-light);
+    color: var(--ion-color-main-light-contrast);
+    ion-label {
+        font-weight: bolder;
+    }
+}
+
+ion-button {
+    margin: auto;
+    padding: 5px;
+    height: 60px;
+    width: 80%;
+    text-transform: none;
+    --background: var(--ion-color-main-dark);
+    --color: var(--ion-color-main-dark-contrast);
+}
+
+ion-img.list-image {
+    height: 80px;
+    width: 80px;
+    padding: 2px;
+}
+
+ion-img.list-image-collection {
+    height: 50px;
+    width: 50px;
+    padding: 2px;
+}
+
+ion-img.preview {
+    max-width: 100%;
+}
+
+ion-img.heading {
+    width: 150px;
+    height: 150px;
+    text-align: center;
+    padding: 5px;
+}

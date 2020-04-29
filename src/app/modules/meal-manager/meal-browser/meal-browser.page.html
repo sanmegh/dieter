@@ -1,0 +1,15 @@
+<ion-content>
+  <ion-button expand="block" routerLink="create">Create New Meal</ion-button>
+  <ion-item class="heading" lines="full">
+    <ion-label>Browse Meals</ion-label>
+  </ion-item>
+  <ion-searchbar placeholder="Enter meal name" (ionInput)="searchForMeals($event)"></ion-searchbar>
+  <ion-item *ngFor="let meal of results">
+    <ion-img class="list-image" [src]="meal.imageLink"></ion-img>
+    <ion-label>
+      <h2>{{meal.name}}</h2>
+      <p>{{util.getMealSummary(meal)}}</p>
+    </ion-label>
+    <ion-icon slot="end" name="forward"></ion-icon>
+  </ion-item>
+</ion-content>

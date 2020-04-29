@@ -1,0 +1,10 @@
+ion-tab-button {
+    --background: var(--ion-color-main-light);
+    --color: var(--ion-color-main-light-contrast);
+}
+
+ion-tab-button.selected {
+    --background: var(--ion-color-main-dark);
+    --color: var(--ion-color-main-dark-contrast);
+    font-weight: bold;
+}

@@ -1,0 +1,21 @@
+ion-header {
+    ion-toolbar {
+        --background: var(--ion-color-main-dark-contrast);
+    }
+
+    ion-item {
+        --background: var(--ion-color-main-dark);
+    }
+
+    ion-icon {
+        color: var(--ion-color-main-dark-contrast);
+    }
+
+    ion-label {
+        font-family: "Trebuchet MS";
+        font-weight: bold;
+        font-style: italic;
+        font-size: x-large;
+        color: var(--ion-color-main-dark-contrast);
+    }
+}

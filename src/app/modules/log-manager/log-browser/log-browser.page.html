@@ -1,0 +1,76 @@
+<ion-content>
+  <div *ngIf="step==='HOME'">
+    <ion-item class="heading" lines="full">
+      <ion-label>Summary</ion-label>
+    </ion-item>
+    <ion-item *ngIf="!logs || logs.length===0">
+      <ion-label color="danger">No logs recorded yet!</ion-label>
+    </ion-item>
+    <ion-button expand="block" (click)="startRecordingDay()" *ngIf="logs && (logs.length===0 || logs[0].id !== today)">
+      Log Today's Meals</ion-button>
+    <ion-item lines="full" *ngFor="let currentLog of logs" (click)="log=currentLog; step='LOG_EDIT'">
+      <ion-label slot="start">
+        <h4>{{util.formatDate(currentLog.id)}}</h4>
+        <p>{{util.getLogSummary(currentLog)}}</p>
+      </ion-label>
+      <ion-img class="list-image-collection" *ngFor="let meal of currentLog.meals.slice(0,3)" [src]="meal.imageLink"
+        [title]="meal.name"></ion-img>
+      <ion-icon slot="end" name="caret-forward-outline"></ion-icon>
+    </ion-item>
+  </div>
+
+  <div *ngIf="step==='LOG_EDIT'">
+    <ion-item class="heading" lines="full">
+      <ion-label>{{util.formatDate(log.id)}}</ion-label>
+    </ion-item>
+    <ion-item *ngFor="let currentMeal of log.meals" (click)="meal=currentMeal; step='MEAL_EDIT'">
+      <ion-img slot="start" class="list-image" [src]="currentMeal.imageLink"></ion-img>
+      <ion-label>
+        <h2>{{currentMeal.name}}</h2>
+        <p>{{util.getMealSummary(currentMeal)}}</p>
+      </ion-label>
+      <ion-icon name="create-outline"></ion-icon>
+    </ion-item>
+    <ion-label color="danger" *ngIf="!log.meals || log.meals.length===0">No meals added yet!</ion-label>
+    <ion-button expand="block" (click)="step='MEAL_SEARCH'">Add Meals</ion-button>
+    <ion-button expand="block" (click)="saveLog(); step='HOME'">Save Day</ion-button>
+    <ion-button expand="block" (click)="ngOnInit(); step='HOME'">Go Back</ion-button>
+  </div>
+
+  <div *ngIf="step==='MEAL_EDIT'">
+    <ion-item class="heading" lines="full">
+      <ion-label>Meal</ion-label>
+    </ion-item>
+    <ion-img class="heading" [src]="meal.imageLink"></ion-img>
+    <p>{{meal.name}}</p>
+    <p>{{util.getMealSummary(meal)}}</p>
+    <ion-item *ngFor="let ingredient of meal.ingredients">
+      <ion-img slot="start" class="list-image" [src]="ingredient.item.imageLink"></ion-img>
+      <ion-label>
+        <h2>{{ingredient.item.name}}</h2>
+        <p>{{ingredient.quantity}} {{ingredient.item.quantityUnit}}</p>
+      </ion-label>
+    </ion-item>
+    <p>{{meal.recipe}}</p>
+    <ion-button expand="block" (click)="log.meals.splice(log.meals.indexOf(meal),1);step='LOG_EDIT'; step='LOG_EDIT'">
+      Remove Meal</ion-button>
+    <ion-button expand="block" (click)="step='LOG_EDIT'">Go Back</ion-button>
+  </div>
+
+  <div *ngIf="step==='MEAL_SEARCH'">
+    <ion-item class="heading" lines="full">
+      <ion-label>Add Meal</ion-label>
+    </ion-item>
+    <ion-searchbar placeholder="Enter meal name" (ionInput)="searchForMeals($event)"></ion-searchbar>
+    <ion-item *ngFor="let currentMeal of mealResults" (click)="addMealToLog(currentMeal); step='LOG_EDIT'">
+      <ion-img slot="start" class="list-image" [src]="currentMeal.imageLink"></ion-img>
+      <ion-label>
+        <h2>{{currentMeal.name}}</h2>
+        <p>{{util.getMealSummary(currentMeal)}}</p>
+      </ion-label>
+      <ion-icon slot="end" name="add-circle-outline"></ion-icon>
+    </ion-item>
+    <ion-button expand="block" (click)="step='LOG_EDIT'">Go Back</ion-button>
+  </div>
+
+</ion-content>

@@ -1,0 +1,15 @@
+<ion-content>
+  <ion-button expand="block" routerLink="create">Register New Product</ion-button>
+  <ion-item class="heading" lines="full">
+    <ion-label>Browse Shelf Items</ion-label>
+  </ion-item>
+  <ion-searchbar placeholder="Search by item name" (ionInput)="searchForRegisteredItems($event)"></ion-searchbar>
+  <ion-item *ngFor="let item of results">
+    <ion-img class="list-image" [src]="item.imageLink"></ion-img>
+    <ion-label>
+      <h2>{{item.name}}</h2>
+      <p>{{util.getItemSummary(item)}}</p>
+    </ion-label>
+    <ion-icon slot="end" name="caret-forward-outline"></ion-icon>
+  </ion-item>
+</ion-content>

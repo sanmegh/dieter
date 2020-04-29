@@ -1,0 +1,8 @@
+{
+  "name": "MealManager",
+  "integrations": {
+    "capacitor": {},
+    "cordova": {}
+  },
+  "type": "angular"
+}

@@ -1,0 +1,126 @@
+<ion-content>
+  <div *ngIf="step==='HOME'">
+    <ion-item class="heading" lines="full">
+      <ion-label>Meal Details</ion-label>
+    </ion-item>
+    <ion-label position="stacked">Meal Name</ion-label>
+    <ion-input [(ngModel)]="meal.name"></ion-input>
+    <ion-button expand="block" (click)="step='INGREDIENTS_LIST'" [disabled]="!meal.name">Continue</ion-button>
+    <ion-button expand="block" routerLink="../">Cancel</ion-button>
+  </div>
+
+  <div *ngIf="step==='INGREDIENTS_LIST'">
+    <ion-item class="heading" lines="full">
+      <ion-label>Meal Ingredients</ion-label>
+    </ion-item>
+    <div *ngIf="meal.ingredients.length>0">
+      <ion-item *ngFor="let currentIngredient of meal.ingredients"
+        (click)="ingredient=currentIngredient; step='INGREDIENT_EDIT'">
+        <ion-img class="list-image" [src]="currentIngredient.item.imageLink"></ion-img>
+        <ion-label>
+          <h2>{{currentIngredient.item.name}}</h2>
+          <p>{{currentIngredient.quantity}} {{currentIngredient.item.quantityUnit}}</p>
+        </ion-label>
+      </ion-item>
+    </div>
+    <ion-button expand="block" (click)="step='INGREDIENT_SEARCH'">Add Ingredient</ion-button>
+    <ion-button expand="block" (click)="step='RECIPE'" [disabled]="meal.ingredients.length===0">Continue
+    </ion-button>
+    <ion-button expand="block" (click)="step='HOME'">Go Back</ion-button>
+  </div>
+
+  <div *ngIf="step==='INGREDIENT_SEARCH'">
+    <ion-item class="heading" lines="full">
+      <ion-label>Add Ingredient</ion-label>
+    </ion-item>
+    <ion-searchbar placeholder="Enter item name" (ionInput)="searchForItems($event)"></ion-searchbar>
+
+    <ion-item *ngFor="let searchItem of items" (click)="ingredient.item=searchItem; step='INGREDIENT_ADD'">
+      <ion-img class="list-image" [src]="searchItem.imageLink"></ion-img>
+      <ion-label>
+        <h2>{{searchItem.name}}</h2>
+        <p>{{util.getItemSummary(searchItem)}}</p>
+      </ion-label>
+      <ion-icon slot="end" name="add-circle-outline"></ion-icon>
+    </ion-item>
+
+    <ion-button expand="block" (click)="step='HOME'">Go Back</ion-button>
+  </div>
+
+  <div *ngIf="step==='INGREDIENT_ADD'">
+    <ion-item class="heading" lines="full">
+      <ion-label>Ingredient Details</ion-label>
+    </ion-item>
+    <ion-img class="preview" [src]="ingredient.item.imageLink"></ion-img>
+    <p>{{ingredient.item.name}}</p>
+    <ion-label>Enter portion to add ({{ingredient.item.quantityUnit}})</ion-label>
+    <ion-input [(ngModel)]="ingredient.quantity"></ion-input>
+    <ion-button expand="block"
+      (click)="meal.ingredients.push(ingredient);items=null;ingredient={};step='INGREDIENTS_LIST'"
+      [disabled]="!ingredient.quantity">Add</ion-button>
+    <ion-button expand="block" (click)="step='INGREDIENT_SEARCH'">Go Back</ion-button>
+  </div>
+
+  <div *ngIf="step==='INGREDIENT_EDIT'">
+    <ion-item class="heading" lines="full">
+      <ion-label>Ingredient Details</ion-label>
+    </ion-item>
+    <ion-img class="preview" [src]="ingredient.item.imageLink"></ion-img>
+    <p>{{ingredient.item.name}}</p>
+    <ion-label>Enter portion to add ({{ingredient.item.quantityUnit}})</ion-label>
+    <ion-input [(ngModel)]="ingredient.quantity"></ion-input>
+    <ion-button expand="block"
+      (click)="meal.ingredients.splice(meal.ingredients.indexOf(ingredient),1);meal.ingredients.push(ingredient);step='INGREDIENTS_LIST'"
+      [disabled]="!ingredient.quantity">Update</ion-button>
+    <ion-button expand="block"
+      (click)="meal.ingredients.splice(meal.ingredients.indexOf(ingredient),1);step='INGREDIENTS_LIST'">
+      Remove Item</ion-button>
+    <ion-button expand="block" (click)="step='INGREDIENTS_LIST'">Go Back</ion-button>
+  </div>
+
+  <div *ngIf="step==='RECIPE'">
+    <ion-item class="heading" lines="full">
+      <ion-label>Meal Recipe</ion-label>
+    </ion-item>
+    <ion-textarea placeholder="Enter recipe..." [(ngModel)]="meal.recipe"></ion-textarea>
+    <ion-button expand="block" (click)="step='IMAGE'">Continue</ion-button>
+    <ion-button expand="block" (click)="step='INGREDIENTS_LIST'">Go Back</ion-button>
+  </div>
+
+  <div *ngIf="step==='IMAGE'">
+    <ion-item class="heading" lines="full">
+      <ion-label>Meal Image</ion-label>
+    </ion-item>
+    <ion-input placeholder="Enter image link..." [(ngModel)]="meal.imageLink"></ion-input>
+    <ion-img class="preview" [src]="meal.imageLink" alt=""></ion-img>
+    <ion-button expand="block" (click)="step='REVIEW'" [disabled]="!meal.imageLink">Review</ion-button>
+    <ion-button expand="block" (click)="step='RECIPE'">Go Back</ion-button>
+  </div>
+
+  <div *ngIf="step==='REVIEW'">
+    <ion-item class="heading" lines="full">
+      <ion-label>Meal Review</ion-label>
+    </ion-item>
+    <ion-img [src]="meal.imageLink"></ion-img>
+    <p>Name : {{meal.name}}</p>
+    <p>{{util.getMealSummary(meal)}}</p>
+    <ion-item *ngFor="let ingredient of meal.ingredients">
+      <ion-thumbnail slot="start">
+        <ion-img [src]="ingredient.item.imageLink"></ion-img>
+      </ion-thumbnail>
+      <ion-label>
+        <h2>{{ingredient.item.name}}</h2>
+        <p>{{ingredient.quantity}} {{ingredient.item.quantityUnit}}</p>
+      </ion-label>
+    </ion-item>
+    <p>{{meal.recipe}}</p>
+    <ion-button expand="block" (click)="saveMeal(); step='FIN'">Save Meal</ion-button>
+    <ion-button expand="block" (click)="step='HOME'">Make corrections</ion-button>
+  </div>
+
+  <div *ngIf="step==='FIN'">
+    <h4>Meal created successfully.</h4>
+    <ion-button expand="block" (click)="ngOnInit()">Create Another Meal</ion-button>
+    <ion-button expand="block" routerLink="../">Go Back</ion-button>
+  </div>
+</ion-content>
