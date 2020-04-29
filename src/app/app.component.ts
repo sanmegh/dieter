@@ -5,6 +5,7 @@ import { Platform } from '@ionic/angular';
 import { DataService } from './services/datastore.service';
 import { LoaderService } from './util/loaderService';
 import { ThemeService } from './util/themeService';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -22,28 +23,34 @@ export class AppComponent {
     private statusBar: StatusBar,
     private themeSwitcher: ThemeService,
     private dataService: DataService,
-    private loaderService: LoaderService
+    private loaderService: LoaderService,
+    private router: Router
   ) {
     this.initializeApp();
   }
 
   initializeApp() {
-    if (!this.dataService.getAttribute('theme')) {
-      this.firstLaunch = true;
-      // Set to false once user skips tour or completes it
-    }
-
-    this.platform.ready().then(() => {
+    this.platform.ready().then(async () => {
+      if (this.initTour()) {
+        return;
+      }
       this.applyTheme();
       this.statusBar.styleDefault();
       this.splashScreen.hide();
     });
   }
 
+  async initTour() {
+    const tour = await this.dataService.getAttribute('TOUR');
+    if (tour != 'DONE') {
+      this.router.navigate(['/init-tour']);
+      return true;
+    }
+    return false;
+  }
+
   async applyTheme() {
-    await this.loaderService.presentLoader('Starting Application...');
     this.themeSwitcher.setTheme(await this.dataService.getAttribute('theme'));
-    await this.loaderService.dismissLoader();
   }
 
 }

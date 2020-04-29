@@ -34,7 +34,7 @@ export class DataService {
         });
     }
 
-    getAttribute(key: string) {
+    getAttribute(key: string): Promise<string> {
         return this.storage.get(ATTR).then(store => store[key]);
     }
 

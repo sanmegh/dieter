@@ -19,7 +19,7 @@ export class ThemeService {
         {
             name: 'blue',
             styles: [
-                { themeVariable: '--ion-color-main-background', value: '#ecf4ff' },
+                { themeVariable: '--ion-color-main-background', value: '#ffffff' },
                 { themeVariable: '--ion-color-main-dark', value: '#0f0099' },
                 { themeVariable: '--ion-color-main-dark-contrast', value: '#d8f3d8' },
                 { themeVariable: '--ion-color-main-light', value: '#0066f0' },
